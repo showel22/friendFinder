@@ -21,18 +21,16 @@ let friendsList = [
 module.exports = {
     list: friendsList,
     findMatch: function (friend) {
-        console.log("Running find match.");
         let highestScorer;
         let highestScore = 0;
-        this.list.forEach((friendInList, i) => {
+        this.list.forEach(function(friendInList, i) {
 
             // Subtract two arrays values and reduce to a single value by adding everything together.
-            var difference = friend.scores.map(function (item, j) {
+            var difference = Math.abs(friend.scores.map(function (item, j) {
                 return item - friendInList.scores[j];
             }).reduce(function (total, num) {
                 return total + num;
-            });
-
+            }));
             if (difference > highestScore){
                 highestScorer = i;
             }

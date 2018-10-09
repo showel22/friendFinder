@@ -197,6 +197,7 @@
 
       $.post("/api/friends", surveyResponse,
         function(data) {
+            console.log(data);
             $("#name").val("");
             $("#image").val("");
             $("#questionOne").val("");
