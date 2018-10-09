@@ -1,8 +1,8 @@
 
 let friendsList = [
     {
-        "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "name": "Google",
+        "photo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
         "scores": [
             5,
             1,

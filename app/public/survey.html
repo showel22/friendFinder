@@ -170,47 +170,71 @@
         </form>
         <hr />
     </div>
+    <!-- Bootstap modal for handling match --> 
+    <div id="matchModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Best Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <p id="matchName"></p>
+                    <img id="matchPhoto"></img>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script type="text/javascript">
+    $("#submit").on("click", function (event) {
+        event.preventDefault();
 
-    $("#submit").on("click", function(event) {
-      event.preventDefault();
+        // Here we grab the form elements
+        var surveyResponse = {
+            name: $("#name").val().trim(),
+            photo: $("#image").val().trim(),
+            scores: [
+                parseInt($("#questionOne").val().trim()),
+                parseInt($("#questionTwo").val().trim()),
+                parseInt($("#questionThree").val().trim()),
+                parseInt($("#questionFour").val().trim()),
+                parseInt($("#questionFive").val().trim()),
+                parseInt($("#questionSix").val().trim()),
+                parseInt($("#questionSeven").val().trim()),
+                parseInt($("#questionEight").val().trim()),
+                parseInt($("#questionNine").val().trim()),
+                parseInt($("#questionTen").val().trim())
+            ]
+        };
 
-      // Here we grab the form elements
-      var surveyResponse = {
-        name: $("#name").val().trim(),
-        photo: $("#image").val().trim(),
-        scores: [
-            parseInt($("#questionOne").val().trim()),
-            parseInt($("#questionTwo").val().trim()),
-            parseInt($("#questionThree").val().trim()),
-            parseInt($("#questionFour").val().trim()),
-            parseInt($("#questionFive").val().trim()),
-            parseInt($("#questionSix").val().trim()),
-            parseInt($("#questionSeven").val().trim()),
-            parseInt($("#questionEight").val().trim()),
-            parseInt($("#questionNine").val().trim()),
-            parseInt($("#questionTen").val().trim())
-        ]
-      };
+        $.post("/api/friends", surveyResponse,
+            function (data) {
+                
+                $('#matchName').text(data.name);
+                $('#matchPhoto').attr('src', data.photo);
+                $('#matchModal').modal('show');
 
-      $.post("/api/friends", surveyResponse,
-        function(data) {
-            console.log(data);
-            $("#name").val("");
-            $("#image").val("");
-            $("#questionOne").val("");
-            $("#questionTwo").val("");
-            $("#questionThree").val("");
-            $("#questionFour").val("");
-            $("#questionFive").val("");
-            $("#questionSix").val("");
-            $("#questionSeven").val("");
-            $("#questionEight").val("");
-            $("#questionNine").val("");
-            $("#questionTen").val("");
-        });
+                $("#name").val("");
+                $("#image").val("");
+                $("#questionOne").val("");
+                $("#questionTwo").val("");
+                $("#questionThree").val("");
+                $("#questionFour").val("");
+                $("#questionFive").val("");
+                $("#questionSix").val("");
+                $("#questionSeven").val("");
+                $("#questionEight").val("");
+                $("#questionNine").val("");
+                $("#questionTen").val("");
+            });
 
     });
 
